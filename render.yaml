@@ -4,7 +4,7 @@ services:
     name: novamed-backend
     runtime: node
     buildCommand: npm install
-    startCommand: node app/index.js
+    startCommand: node api/index.js
     envVars:
       - key: BREVO_SMTP_USER
         sync: false
