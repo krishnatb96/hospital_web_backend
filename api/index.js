@@ -6,7 +6,10 @@ const { sendEmail } = require('../emailService');
 const { sendSMS }   = require('../smsService');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'https://novahospitalweb.vercel.app', // replace with your frontend URL in production
+  methods: ['GET', 'POST']
+}));
 app.use(express.json());
 
 app.post('/api/appointment', async (req, res) => {
@@ -82,6 +85,15 @@ function staffEmailTemplate(name, email, phone, dept, date, msg) {
   </div>`;
 }
 
-app.listen(process.env.PORT, () =>
-  console.log(`NovaMed API running on port ${process.env.PORT}`)
-);
+app.get('/', (req, res) => {
+  res.json({ status: 'NovaMed API is running' });
+});
+
+// ✅ Required for Vercel — export the app
+module.exports = app;
+
+// ✅ Also keep listen for local development
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
