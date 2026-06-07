@@ -15,8 +15,8 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+   "start": "node app/index.js",
+   "dev": "nodemon app/index.js"
   },
   "engines": {
     "node": "24.x"
