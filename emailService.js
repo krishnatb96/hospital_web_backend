@@ -11,13 +11,20 @@ const transporter = nodemailer.createTransport({
 });
 
 async function sendEmail({ to, subject, html }) {
-  await transporter.sendMail({
-    from: 'krishna.valttech@gmail.com',
-    to, 
-    subject,
-    html
-  });
-  console.log(`Email sent to ${to}`);
+  try {
+    const info = await transporter.sendMail({
+      from: "krishna.valttech@gmail.com",
+      to,
+      subject,
+      html,
+    });
+
+    console.log("Email sent:", info);
+  } catch (err) {
+    console.error("Email Error:", err);
+  }
 }
+console.log("BREVO_SMTP_USER:", process.env.BREVO_SMTP_USER);
+console.log("BREVO_SMTP_PASS exists:", !!process.env.BREVO_SMTP_PASS);
 
 module.exports = { sendEmail };
